@@ -2,9 +2,9 @@ name: DynamoDB Infrastructure CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ brunolimafogas-patch-1 ]
   pull_request:
-    branches: [ main ]
+    branches: [ brunolimafogas-patch-1 ]
   workflow_dispatch:
 
 env:
