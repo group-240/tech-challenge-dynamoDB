@@ -46,7 +46,7 @@ resource "mongodbatlas_database_user" "user" {
 
 resource "mongodbatlas_project_ip_access_list" "ip" {
   project_id = mongodbatlas_project.project.id
-  ip_address = var.allowed_ip   # Pode ser "0.0.0.0/0" para liberar geral
+  ip_address = var.allowed_ip   # Pode ser "0.0.0.0" para liberar geral
   comment    = "Acesso irrestrito (não recomendado em produção)"
 }
 
