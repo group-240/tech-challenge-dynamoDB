@@ -20,14 +20,17 @@ resource "mongodbatlas_project" "project" {
 }
 
 resource "mongodbatlas_cluster" "cluster" {
-  project_id                   = mongodbatlas_project.project.id
-  name                         = "ClusterFree"
-  provider_name                = "AWS"
-  provider_instance_size_name  = "M0"
-  provider_region_name         = "US_EAST_1"
-  cluster_type                 = "REPLICASET"
-  auto_scaling_disk_gb_enabled = false
+  project_id                = mongodbatlas_project.project.id
+  name         				= "ClusterFree"
+  cluster_type 				= "REPLICASET" # M0 clusters are replica sets
+  provider_name 			= "AWS" # M0 clusters are typically AWS
+  disk_size_gb 				= 0.5 # M0 clusters have 0.5 GB storage
+  instance_size 			= "M0"
+  region_name   			= "US_EAST_1"
+  replication_factor 		= 3 # M0 clusters are 3-node replica sets
+  mongo_db_major_version 	= "8.0" # Specify your desired MongoDB major version
 }
+
 
 resource "mongodbatlas_database_user" "user" {
   project_id         = mongodbatlas_project.project.id
