@@ -1,69 +1,63 @@
-# ------------------------------------------------------------------
-# Arquivo: main.tf
-# Descrição: Ponto de entrada principal do Terraform para DynamoDB.
-# ------------------------------------------------------------------
-
 terraform {
+  required_version = ">= 1.5.0"
+
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
+    mongodbatlas = {
+      source  = "mongodb/mongodbatlas"
+      version = "~> 1.19"
     }
   }
-  backend "s3" {
-    bucket         = "fiap-tech-challenge-tfstate-bucket"
-    key            = "dynamodb/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-lock"
-    encrypt        = true
-  }
 }
 
-provider "aws" {
-  region = var.aws_region
+provider "mongodbatlas" {
+  public_key  = var.mongodb_public_key
+  private_key = var.mongodb_private_key
 }
 
-data "terraform_remote_state" "core" {
-  backend = "s3"
-  config = {
-    bucket = "fiap-tech-challenge-tfstate-bucket"
-    key    = "core/terraform.tfstate"
-    region = var.aws_region
-  }
+resource "mongodbatlas_project" "project" {
+  name   = "projeto-terraform-git"
+  org_id = var.org_id
 }
 
-# DynamoDB Table
-resource "aws_dynamodb_table" "main" {
-  name           = var.dynamodb_table_name
-  billing_mode   = var.billing_mode
-  hash_key       = var.hash_key
-
-  attribute {
-    name = var.hash_key
-    type = var.hash_key_type
+resource "mongodbatlas_cluster" "cluster" {
+  project_id   = mongodbatlas_project.project.id
+  name         = "cluster-git-terraform"
+  cluster_type = "REPLICASET"
+  provider_settings {
+    provider_name         = "GCP"
+    region_name           = "SOUTH_AMERICA-EAST1"
+    instance_size_name    = "M10"
+    disk_size_gb          = 10
+    backing_provider_name = "GCP"
   }
-
-  dynamic "attribute" {
-    for_each = var.range_key != "" ? [1] : []
-    content {
-      name = var.range_key
-      type = var.range_key_type
+  replication_specs {
+    num_shards = 1
+    region_configs {
+      region_name     = "SOUTH_AMERICA-EAST1"
+      electable_nodes = 3
+      priority        = 7
     }
   }
+}
 
-  tags = {
-    Name    = "${var.project_name}-dynamodb"
-    Project = var.project_name
+resource "mongodbatlas_database_user" "user" {
+  project_id         = mongodbatlas_project.project.id
+  username           = var.db_user
+  password           = var.db_pass
+  auth_database_name = "admin"
+
+  roles {
+    role_name     = "readWriteAnyDatabase"
+    database_name = "admin"
   }
 }
 
-# Outputs
-output "dynamodb_table_name" {
-  description = "Nome da tabela DynamoDB"
-  value       = aws_dynamodb_table.main.name
+resource "mongodbatlas_project_ip_access_list" "ip" {
+  project_id = mongodbatlas_project.project.id
+  ip_address = var.allowed_ip   # Pode ser "0.0.0.0/0" para liberar geral
+  comment    = "Acesso irrestrito (não recomendado em produção)"
 }
 
-output "dynamodb_table_arn" {
-  description = "ARN da tabela DynamoDB"
-  value       = aws_dynamodb_table.main.arn
+output "connection_string" {
+  value = mongodbatlas_cluster.cluster.connection_strings[0].standard_srv
 }

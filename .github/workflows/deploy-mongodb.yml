@@ -1,0 +1,28 @@
+name: Deploy MongoDB Atlas
+
+on:
+  push:
+    branches:
+      - main
+      - mongoDB-gcp
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_mongodb_public_key: ${{ secrets.MONGODB_ATLAS_PUBLIC_KEY }}
+          TF_VAR_mongodb_private_key: ${{ secrets.MONGODB_ATLAS_PRIVATE_KEY }}
+          TF_VAR_org_id: ${{ secrets.ATLAS_ORG_ID }}

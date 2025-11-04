@@ -1,47 +1,31 @@
-variable "aws_region" {
-  description = "Região da AWS"
+variable "mongodb_public_key" {
+  description = "Chave pública da API Atlas"
   type        = string
-  default     = "us-east-1"
 }
 
-variable "project_name" {
-  description = "Nome do projeto"
+variable "mongodb_private_key" {
+  description = "Chave privada da API Atlas"
   type        = string
-  default     = "tech-challenge"
+  sensitive   = true
 }
 
-variable "dynamodb_table_name" {
-  description = "Nome da tabela DynamoDB"
+variable "org_id" {
+  description = "ID da Organização Atlas"
   type        = string
-  default     = "techchallenge-dynamodb"
 }
 
-variable "billing_mode" {
-  description = "Modo de cobrança do DynamoDB"
+variable "db_user" {
+  description = "Usuário do MongoDB"
   type        = string
-  default     = "PAY_PER_REQUEST"
 }
 
-variable "hash_key" {
-  description = "Nome da chave primária (partition key)"
+variable "db_pass" {
+  description = "Senha do MongoDB"
   type        = string
-  default     = "id"
+  sensitive   = true
 }
 
-variable "hash_key_type" {
-  description = "Tipo da chave primária (S, N, B)"
+variable "allowed_ip" {
+  description = "IP liberado para acesso"
   type        = string
-  default     = "S"
-}
-
-variable "range_key" {
-  description = "Nome da chave de ordenação (sort key), se aplicável"
-  type        = string
-  default     = ""
-}
-
-variable "range_key_type" {
-  description = "Tipo da chave de ordenação (S, N, B)"
-  type        = string
-  default     = "S"
 }
