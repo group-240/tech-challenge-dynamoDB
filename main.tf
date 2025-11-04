@@ -21,15 +21,12 @@ resource "mongodbatlas_project" "project" {
 
 resource "mongodbatlas_cluster" "cluster" {
   project_id                   = mongodbatlas_project.project.id
-  name                         = "cluster-git-terraform"
-  provider_name                = "GCP"
-  provider_instance_size_name  = "M10"
-  provider_region_name         = "SOUTH_AMERICA-EAST1"
-  disk_size_gb                 = 10
-  auto_scaling_disk_gb_enabled = true
+  name                         = "cluster-free"
+  provider_name                = "AWS"                 # ou "GCP" ou "AZURE" conforme imagem
+  provider_instance_size_name  = "M0"                  # M0 é o FREE
+  provider_region_name         = "US_EAST_1"           # Região disponível para M0 (ver observação abaixo)
   cluster_type                 = "REPLICASET"
-  num_shards                   = 1
-  replication_factor           = 3
+  auto_scaling_disk_gb_enabled = false                 # M0 não possui autoscaling
 }
 
 resource "mongodbatlas_database_user" "user" {
