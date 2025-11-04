@@ -10,8 +10,8 @@ terraform {
 }
 
 provider "mongodbatlas" {
-  public_key  = "bocgzzeh"
-  private_key = "1d376f65-0bd2-47a5-b00f-c5943873aa96"
+  public_key  = "lsinfvms"
+  private_key = "366511a3-de6e-4358-9acc-42239760445e"
 }
 
 resource "mongodbatlas_project" "project" {
