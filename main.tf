@@ -24,7 +24,7 @@ resource "mongodbatlas_cluster" "cluster" {
   name                         = "cluster-free"
   provider_name                = "AWS"                 # ou "GCP" ou "AZURE" conforme imagem
   provider_instance_size_name  = "M0"                  # M0 é o FREE
-  provider_region_name         = "US_EAST_1"           # Região disponível para M0 (ver observação abaixo)
+  provider_region_name         = "SA_EAST_1"           # Região disponível para M0 (ver observação abaixo)
   cluster_type                 = "REPLICASET"
   auto_scaling_disk_gb_enabled = false                 # M0 não possui autoscaling
 }
