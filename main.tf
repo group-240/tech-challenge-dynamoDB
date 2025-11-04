@@ -21,12 +21,12 @@ resource "mongodbatlas_project" "project" {
 
 resource "mongodbatlas_cluster" "cluster" {
   project_id                   = mongodbatlas_project.project.id
-  name                         = "cluster-free"
-  provider_name                = "AWS"                 # ou "GCP" ou "AZURE" conforme imagem
-  provider_instance_size_name  = "M0"                  # M0 é o FREE
-  provider_region_name         = "SA_EAST_1"           # Região disponível para M0 (ver observação abaixo)
+  name                         = "ClusterFree"
+  provider_name                = "AWS"
+  provider_instance_size_name  = "M0"
+  provider_region_name         = "US_EAST_1"
   cluster_type                 = "REPLICASET"
-  auto_scaling_disk_gb_enabled = false                 # M0 não possui autoscaling
+  auto_scaling_disk_gb_enabled = false
 }
 
 resource "mongodbatlas_database_user" "user" {
