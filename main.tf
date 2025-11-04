@@ -10,13 +10,13 @@ terraform {
 }
 
 provider "mongodbatlas" {
-  public_key  = var.mongodb_public_key
-  private_key = var.mongodb_private_key
+  public_key  = "bocgzzeh"
+  private_key = "1d376f65-0bd2-47a5-b00f-c5943873aa96"
 }
 
 resource "mongodbatlas_project" "project" {
   name   = "projeto-terraform-git"
-  org_id = var.org_id
+  org_id = "6909333add5c232d0e778bfa"
 }
 
 resource "mongodbatlas_cluster" "cluster" {
