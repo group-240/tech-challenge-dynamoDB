@@ -20,24 +20,16 @@ resource "mongodbatlas_project" "project" {
 }
 
 resource "mongodbatlas_cluster" "cluster" {
-  project_id   = mongodbatlas_project.project.id
-  name         = "cluster-git-terraform"
-  cluster_type = "REPLICASET"
-  provider_settings {
-    provider_name         = "GCP"
-    region_name           = "SOUTH_AMERICA-EAST1"
-    instance_size_name    = "M10"
-    disk_size_gb          = 10
-    backing_provider_name = "GCP"
-  }
-  replication_specs {
-    num_shards = 1
-    region_configs {
-      region_name     = "SOUTH_AMERICA-EAST1"
-      electable_nodes = 3
-      priority        = 7
-    }
-  }
+  project_id                   = mongodbatlas_project.project.id
+  name                         = "cluster-git-terraform"
+  provider_name                = "GCP"
+  provider_instance_size_name  = "M10"
+  provider_region_name         = "SOUTH_AMERICA-EAST1"
+  disk_size_gb                 = 10
+  auto_scaling_disk_gb_enabled = true
+  cluster_type                 = "REPLICASET"
+  num_shards                   = 1
+  replication_factor           = 3
 }
 
 resource "mongodbatlas_database_user" "user" {
