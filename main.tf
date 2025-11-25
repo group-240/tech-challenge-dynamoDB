@@ -40,11 +40,11 @@ resource "mongodbatlas_database_user" "user" {
   }
 }
 
-resource "mongodbatlas_project_ip_access_list" "ip" {
-  project_id = mongodbatlas_project.project.id
-  ip_address = "0.0.0.0"   # Pode ser "0.0.0.0" para liberar geral
-  comment    = "Acesso irrestrito (não recomendado em produção)"
-}
+#resource "mongodbatlas_project_ip_access_list" "ip" {
+  #project_id = mongodbatlas_project.project.id
+ # ip_address = "0.0.0.0"   # Pode ser "0.0.0.0" para liberar geral
+ # comment    = "Acesso irrestrito (não recomendado em produção)"
+#}
 
 output "connection_string" {
   value = mongodbatlas_cluster.cluster.connection_strings[0].standard_srv
