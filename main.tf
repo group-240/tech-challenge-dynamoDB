@@ -15,7 +15,7 @@ provider "mongodbatlas" {
 }
 
 resource "mongodbatlas_project" "project" {
-  name   = "projeto-terraform-pro"
+  name   = "projeto-terraform-pro-1"
   org_id = "6909333add5c232d0e778bfa"
 }
 
