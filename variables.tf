@@ -24,8 +24,3 @@ variable "db_pass" {
   type        = string
   sensitive   = true
 }
-
-variable "allowed_ip" {
-  description = "IP liberado para acesso"
-  type        = string
-}

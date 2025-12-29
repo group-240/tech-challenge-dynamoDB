@@ -10,13 +10,13 @@ terraform {
 }
 
 provider "mongodbatlas" {
-  public_key  = "lsinfvms"
-  private_key = "366511a3-de6e-4358-9acc-42239760445e"
+  public_key  = var.mongodb_public_key
+  private_key = var.mongodb_private_key
 }
 
 resource "mongodbatlas_project" "project" {
   name   = "projeto-terraform-pro"
-  org_id = "6909333add5c232d0e778bfa"
+  org_id = var.org_id   # Correto: valor injetado por variável/secret
 }
 
 resource "mongodbatlas_cluster" "cluster" {
