@@ -47,5 +47,6 @@ resource "mongodbatlas_project_ip_access_list" "allow_all" {
 }
 
 output "connection_string" {
-  value = mongodbatlas_cluster.cluster.connection_strings[0].standard_srv
+  value     = mongodbatlas_cluster.cluster.connection_strings[0].standard_srv
+  sensitive = true
 }
