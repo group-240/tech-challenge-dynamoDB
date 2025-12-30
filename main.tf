@@ -15,7 +15,7 @@ provider "mongodbatlas" {
 }
 
 resource "mongodbatlas_project" "project" {
-  name   = "projeto-terraform-pro"
+  name   = "projeto-terraform-pro-1"
   org_id = var.org_id   # Correto: valor injetado por variável/secret
 }
 
@@ -40,11 +40,11 @@ resource "mongodbatlas_database_user" "user" {
   }
 }
 
-#resource "mongodbatlas_project_ip_access_list" "ip" {
-  #project_id = mongodbatlas_project.project.id
- # ip_address = "0.0.0.0"   # Pode ser "0.0.0.0" para liberar geral
- # comment    = "Acesso irrestrito (não recomendado em produção)"
-#}
+resource "mongodbatlas_project_ip_access_list" "allow_all" {
+  project_id = mongodbatlas_project.project.id
+  cidr_block = "0.0.0.0/0"
+  comment    = "Liberado para qualquer IP"
+}
 
 output "connection_string" {
   value = mongodbatlas_cluster.cluster.connection_strings[0].standard_srv
