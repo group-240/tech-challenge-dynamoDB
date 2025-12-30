@@ -15,7 +15,11 @@ provider "mongodbatlas" {
 }
 
 resource "mongodbatlas_project" "project" {
+<<<<<<< HEAD
   name   = "projeto-terraform-pro-3"
+=======
+  name   = "projeto-terraform-pro-2"
+>>>>>>> b1e05a575c5002dad35779bed78048f08ebc8329
   org_id = var.org_id   # Correto: valor injetado por variável/secret
 }
 
