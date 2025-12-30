@@ -38,5 +38,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           gh secret set MONGO_URI \
-            --repo SUA_ORG/tech-challenge-payments \
+            --repo group-240/tech-challenge-payments \
             --body "$MONGO_URI"
