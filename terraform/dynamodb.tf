@@ -50,33 +50,5 @@ resource "aws_dynamodb_table" "payments" {
   }
 }
 
-# IAM Policy para acesso ao DynamoDB (será usado pelos pods do EKS)
-resource "aws_iam_policy" "dynamodb_access" {
-  name        = "tech-challenge-dynamodb-access"
-  description = "Policy for accessing DynamoDB tables"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "dynamodb:GetItem",
-          "dynamodb:PutItem",
-          "dynamodb:UpdateItem",
-          "dynamodb:DeleteItem",
-          "dynamodb:Query",
-          "dynamodb:Scan",
-          "dynamodb:BatchGetItem",
-          "dynamodb:BatchWriteItem"
-        ]
-        Resource = [
-          aws_dynamodb_table.orders.arn,
-          "${aws_dynamodb_table.orders.arn}/index/*",
-          aws_dynamodb_table.payments.arn,
-          "${aws_dynamodb_table.payments.arn}/index/*"
-        ]
-      }
-    ]
-  })
-}
+# NOTA: No AWS Academy Learner Lab, não é possível criar IAM policies.
+# O acesso ao DynamoDB será feito através do LabRole existente.

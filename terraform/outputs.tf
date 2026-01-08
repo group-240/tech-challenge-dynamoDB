@@ -18,11 +18,6 @@ output "dynamodb_payments_table_arn" {
   value       = aws_dynamodb_table.payments.arn
 }
 
-output "dynamodb_access_policy_arn" {
-  description = "IAM Policy ARN for DynamoDB access"
-  value       = aws_iam_policy.dynamodb_access.arn
-}
-
 output "aws_region" {
   description = "AWS Region where DynamoDB is deployed"
   value       = var.aws_region
