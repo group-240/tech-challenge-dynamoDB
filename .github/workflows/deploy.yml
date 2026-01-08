@@ -29,7 +29,9 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}          aws-region: ${{ env.AWS_REGION }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -51,17 +53,17 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = \`#### DynamoDB Terraform Plan ���\\\`\${{ steps.plan.outcome }}\\\`
+            const output = `#### DynamoDB Terraform Plan 📖\`${{ steps.plan.outcome }}\`
             
             <details><summary>Show Plan</summary>
             
-            \\\`\\\`\\\`terraform
-            \${{ steps.plan.outputs.stdout }}
-            \\\`\\\`\\\`
+            \`\`\`terraform
+            ${{ steps.plan.outputs.stdout }}
+            \`\`\`
             
             </details>
             
-            *Pusher: @\${{ github.actor }}, Action: \\\`\${{ github.event_name }}\\\`*\`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -85,7 +87,9 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}          aws-region: ${{ env.AWS_REGION }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
