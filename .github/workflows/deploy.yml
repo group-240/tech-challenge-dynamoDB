@@ -53,17 +53,17 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = \`#### DynamoDB Terraform Plan ���\\\`\${{ steps.plan.outcome }}\\\`
+            const output = `#### DynamoDB Terraform Plan 📖\`${{ steps.plan.outcome }}\`
             
             <details><summary>Show Plan</summary>
             
-            \\\`\\\`\\\`terraform
-            \${{ steps.plan.outputs.stdout }}
-            \\\`\\\`\\\`
+            \`\`\`terraform
+            ${{ steps.plan.outputs.stdout }}
+            \`\`\`
             
             </details>
             
-            *Pusher: @\${{ github.actor }}, Action: \\\`\${{ github.event_name }}\\\`*\`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
