@@ -4,9 +4,9 @@ Repositório responsável pelas tabelas DynamoDB na AWS.
 
 ## O que este repositório cria
 
-- **Tabela tech-challenge-orders** - Armazena dados de pedidos
-- **Tabela tech-challenge-payments** - Armazena dados de pagamentos
-- **IAM Policy** - Política de acesso às tabelas
+- **Tabela tech-challenge-orders** - Armazena dados de pedidos.
+- **Tabela tech-challenge-payments** - Armazena dados de pagamentos.
+- **IAM Policy** - Política de acesso às tabelas.
 
 ## Dependências
 
