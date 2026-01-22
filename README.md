@@ -16,7 +16,6 @@ Repositório responsável pelas tabelas DynamoDB na AWS.
 | Terraform >= 1.10.0 | Ferramenta de IaC |
 
 ## Secrets Necessários (GitHub)
-
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 
